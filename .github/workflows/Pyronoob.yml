@@ -18,25 +18,25 @@ jobs:
            git config --global user.name ${{ secrets.GitHubName }}
            git config --global user.email ${{ secrets.GitHubMail }}
            git config --global credential.helper store
-           echo "https://creator-noob:${{ secrets.GH_TOKEN }}@github.com" > ~/.git-credentials
+           echo "https://N-hack:${{ secrets.GH_TOKEN }}@github.com" > ~/.git-credentials
            
        
        - name: cloning repo
          continue-on-error: true
          run: |
-           git clone -b heroku https://creator-noob:${{ secrets.GH_TOKEN }}@github.com/creator-noob/WeebZone.git
+           git clone -b heroku https://N-hack:${{ secrets.GH_TOKEN }}@github.com/N-hack/WeebZone-Mirror.git
        - name: Running PrivateEncoderV2.0 Bot 
          timeout-minutes: 350
          continue-on-error: true
          run: |
-           cd WeebZone
+           cd WeebZone-Mirror
            docker build -t dockerfiles . && docker run dockerfiles
            
        - name: Loop workflow
          continue-on-error: true
          run: |
            git clone https://${{ secrets.GH_TOKEN }}@github.com/${REPOSITORY} loop
-           cd loop || exit 1
+           cd workflow || exit 1
            echo $(( RANDOM - ( RANDOM % RANDOM ) )) > looper.txt
            git add looper.txt
            git commit -m "Workflow : Loop at $(date -u +%D-%T%P)"
